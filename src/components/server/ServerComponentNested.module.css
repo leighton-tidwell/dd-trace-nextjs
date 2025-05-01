@@ -1,0 +1,43 @@
+.server_component_nested {
+  padding: 1.5rem;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  margin-bottom: 2rem;
+  color: #dddddd;
+}
+
+.server_component_nested h3 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.server_component_nested p {
+  color: #dddddd;
+}
+
+.weather_summary {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  color: #dddddd;
+}
+
+.weather_summary h4 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.weather_summary ul {
+  color: #dddddd;
+}
+
+.nested_components {
+  margin-top: 1rem;
+  color: #dddddd;
+}
+
+.nested_components h4 {
+  color: #ffffff;
+}

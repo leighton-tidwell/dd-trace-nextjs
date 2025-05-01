@@ -1,0 +1,116 @@
+.server_display {
+  padding: 1rem;
+  background-color: #1a1a1a;
+  border-radius: 4px;
+  color: #dddddd;
+}
+
+.server_display h4 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.server_display p {
+  color: #dddddd;
+}
+
+.server_info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.5rem;
+  color: #dddddd;
+}
+
+.info_item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.8rem;
+  color: #bbbbbb;
+}
+
+.value {
+  font-weight: 500;
+  color: #dddddd;
+}
+
+.option_display {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #dddddd;
+}
+
+.option_content {
+  padding: 1rem;
+  border-radius: 4px;
+  color: #dddddd;
+}
+
+.option_content h5 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.option_content p {
+  color: #dddddd;
+}
+
+.option_content ul {
+  color: #dddddd;
+}
+
+.option1 {
+  background-color: #1a3a4a;
+}
+
+.option2 {
+  background-color: #1a3a1a;
+}
+
+.option3 {
+  background-color: #3a3a1a;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.grid_item {
+  padding: 0.5rem;
+  background-color: #333333;
+  border: 1px solid #444;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #dddddd;
+}
+
+.progress_container {
+  margin-top: 1rem;
+  height: 20px;
+  background-color: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress_bar {
+  height: 100%;
+  background-color: #52c41a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.8rem;
+  transition: width 0.3s ease;
+}

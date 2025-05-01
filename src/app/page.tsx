@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -13,37 +14,30 @@ export default function Home() {
           height={38}
           priority
         />
+        <h1>Datadog RSC Testing</h1>
+        <p>
+          This application demonstrates React Server Components and Server
+          Actions with Datadog tracing.
+        </p>
+
         <ol>
           <li>
-            Get started by editing <code>src/app/page.tsx</code>.
+            Click on <strong>Test Server Components</strong> to see various
+            server components in action.
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>
+            Click on <strong>Test Server Actions</strong> to see server actions
+            with form handling and data mutations.
+          </li>
         </ol>
 
         <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+          <Link href="/server-components" className={styles.primary}>
+            Test Server Components
+          </Link>
+          <Link href="/server-actions" className={styles.secondary}>
+            Test Server Actions
+          </Link>
         </div>
       </main>
       <footer className={styles.footer}>

@@ -1,0 +1,51 @@
+.server_component {
+  padding: 1.5rem;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background-color: #1a1a1a;
+  margin-bottom: 2rem;
+  color: #dddddd;
+}
+
+.server_component h3 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.server_component p {
+  color: #dddddd;
+}
+
+.server_info {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  color: #dddddd;
+}
+
+.server_info h4 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.server_info ul {
+  color: #dddddd;
+}
+
+.calculation_result {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #333333;
+  border-radius: 4px;
+  color: #dddddd;
+}
+
+.calculation_result h4 {
+  color: #ffffff;
+  margin-top: 0;
+}
+
+.calculation_result p {
+  color: #dddddd;
+}

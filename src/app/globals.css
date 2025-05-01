@@ -1,13 +1,11 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #121212;
+  --foreground: #ffffff;
+  --text-primary: #ffffff;
+  --text-secondary: #dddddd;
+  --text-tertiary: #bbbbbb;
+  --component-bg: #1a1a1a;
+  --component-border: #333333;
 }
 
 html,
@@ -33,6 +31,109 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Global text styles to ensure proper contrast */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-primary);
+}
+
+p,
+li,
+span,
+div {
+  color: var(--text-secondary);
+}
+
+/* Server component specific styles */
+[class*="server_component"] {
+  color: var(--text-secondary) !important;
+  background-color: #1e1e1e !important;
+  border-color: #333333 !important;
+}
+
+[class*="server_component"] h1,
+[class*="server_component"] h2,
+[class*="server_component"] h3,
+[class*="server_component"] h4,
+[class*="server_component"] h5,
+[class*="server_component"] h6 {
+  color: var(--text-primary) !important;
+}
+
+[class*="server_component"] p,
+[class*="server_component"] li,
+[class*="server_component"] span {
+  color: var(--text-secondary) !important;
+}
+
+/* Fix for data statistics, tables, and other components */
+.data_statistics,
+.weather_summary,
+.server_info,
+.posts_list,
+.data_table {
+  background-color: #2a2a2a !important;
+  color: var(--text-secondary) !important;
+}
+
+.post,
+.weather_card,
+.option_content {
+  background-color: #333333 !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Fix for data table */
+.data_table h4 {
+  color: var(--text-primary) !important;
+}
+
+.table {
+  background-color: #1e1e1e !important;
+  color: var(--text-secondary) !important;
+}
+
+/* Table styles */
+table {
+  color: var(--text-secondary);
+}
+
+th {
+  color: var(--text-primary);
+  background-color: #333333 !important;
+}
+
+td {
+  color: var(--text-secondary);
+}
+
+.th {
+  background-color: #333333 !important;
+}
+
+.td {
+  color: var(--text-secondary) !important;
+}
+
+.tr_even {
+  background-color: #2a2a2a !important;
+}
+
+/* Form element styles */
+label {
+  color: var(--text-secondary);
+}
+
+input,
+select,
+textarea {
+  color: var(--text-primary);
 }
 
 @media (prefers-color-scheme: dark) {

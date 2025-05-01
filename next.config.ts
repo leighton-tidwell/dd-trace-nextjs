@@ -1,7 +1,19 @@
+import "dd-trace/init";
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  webpack: (config) => {
+    const externals = [
+      // required if you use native metrics
+      "@datadog/native-metrics",
+
+      // required if you use profiling
+      "@datadog/pprof",
+    ];
+    config.externals.push(...externals);
+    return config;
+  },
 };
 
 export default nextConfig;
