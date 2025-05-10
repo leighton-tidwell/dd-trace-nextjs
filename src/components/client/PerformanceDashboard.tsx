@@ -1,58 +1,51 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-  getComponentMetrics,
-  getActionMetrics,
-} from "@/utils/performance-tracer";
-import type { ComponentMetric, ActionMetric } from "@/utils/performance-tracer";
+import { useState } from "react";
+
+// Import only the types from performance-tracer
+interface ComponentMetric {
+  name: string;
+  renderTime: number;
+  dataFetchTime?: number;
+  timestamp: number;
+  resourceUsage?: {
+    cpuTime?: number;
+    memoryUsage?: number;
+  };
+}
+
+interface ActionMetric {
+  name: string;
+  executionTime: number;
+  timestamp: number;
+  params?: Record<string, any>;
+  result?: any;
+  resourceUsage?: {
+    cpuTime?: number;
+    memoryUsage?: number;
+  };
+}
 
 interface PerformanceDashboardProps {
-  refreshInterval?: number; // in milliseconds
+  componentMetrics: ComponentMetric[]; // Receive metrics as props instead of fetching
+  actionMetrics: ActionMetric[]; // Receive metrics as props instead of fetching
   showComponents?: boolean;
   showActions?: boolean;
   maxItems?: number;
 }
 
 export default function PerformanceDashboard({
-  refreshInterval = 5000,
+  componentMetrics,
+  actionMetrics,
   showComponents = true,
   showActions = true,
   maxItems = 20,
 }: PerformanceDashboardProps) {
-  const [componentMetrics, setComponentMetrics] = useState<ComponentMetric[]>(
-    []
-  );
-  const [actionMetrics, setActionMetrics] = useState<ActionMetric[]>([]);
   const [sortField, setSortField] = useState<string>("time");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
   const [activeTab, setActiveTab] = useState<"components" | "actions">(
     showComponents ? "components" : "actions"
   );
-
-  // Fetch metrics on mount and at the specified interval
-  useEffect(() => {
-    const fetchMetrics = () => {
-      if (showComponents) {
-        const metrics = getComponentMetrics();
-        setComponentMetrics(metrics);
-      }
-
-      if (showActions) {
-        const metrics = getActionMetrics();
-        setActionMetrics(metrics);
-      }
-    };
-
-    // Fetch immediately
-    fetchMetrics();
-
-    // Set up interval for refreshing
-    const intervalId = setInterval(fetchMetrics, refreshInterval);
-
-    // Clean up
-    return () => clearInterval(intervalId);
-  }, [refreshInterval, showComponents, showActions]);
 
   // Sort metrics based on the selected field and direction
   const sortedComponentMetrics = [...componentMetrics]
@@ -259,16 +252,18 @@ export default function PerformanceDashboard({
 
       <style jsx>{`
         .performance-dashboard {
-          background-color: #f5f5f5;
+          background-color: #1a1a1a;
           border-radius: 8px;
           padding: 20px;
           margin: 20px 0;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          color: #dddddd;
         }
 
-        h2 {
+        h2,
+        h3 {
           margin-top: 0;
-          color: #333;
+          color: #dddddd;
         }
 
         .tabs {
@@ -283,7 +278,7 @@ export default function PerformanceDashboard({
           border-bottom: 2px solid transparent;
           cursor: pointer;
           font-size: 16px;
-          color: #666;
+          color: #aaaaaa;
         }
 
         .tabs button.active {
@@ -298,10 +293,11 @@ export default function PerformanceDashboard({
         table {
           width: 100%;
           border-collapse: collapse;
+          color: #dddddd;
         }
 
         th {
-          background-color: #f0f0f0;
+          background-color: #2a2a2a;
           padding: 12px;
           text-align: left;
           cursor: pointer;
@@ -309,20 +305,20 @@ export default function PerformanceDashboard({
         }
 
         th:hover {
-          background-color: #e0e0e0;
+          background-color: #333333;
         }
 
         td {
           padding: 12px;
-          border-top: 1px solid #ddd;
+          border-top: 1px solid #333333;
         }
 
         tr:nth-child(even) {
-          background-color: #fafafa;
+          background-color: #222222;
         }
 
         tr:hover {
-          background-color: #f0f0f0;
+          background-color: #2a2a2a;
         }
       `}</style>
     </div>

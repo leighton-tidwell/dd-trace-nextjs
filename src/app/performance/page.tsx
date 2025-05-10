@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "../page.module.css";
-import PerformanceDashboard from "@/components/client/PerformanceDashboard";
+import PerformanceMetricsProvider from "@/components/server/PerformanceMetricsProvider";
 import { configurePerformanceMonitoring } from "@/utils/performance-tracer";
 
 // Configure performance monitoring
@@ -20,7 +20,7 @@ export default function PerformancePage() {
         </p>
 
         <div style={{ marginTop: "2rem", width: "100%", maxWidth: "1000px" }}>
-          <PerformanceDashboard 
+          <PerformanceMetricsProvider
             refreshInterval={3000}
             showComponents={true}
             showActions={true}
