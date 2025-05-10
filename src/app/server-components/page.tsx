@@ -1,10 +1,12 @@
 import Link from "next/link";
 import styles from "../page.module.css";
-import ServerComponentBasic from "@/components/server/ServerComponentBasic";
-import ServerComponentWithData from "@/components/server/ServerComponentWithData";
-import ServerComponentNested from "@/components/server/ServerComponentNested";
-import ServerComponentWithAsyncData from "@/components/server/ServerComponentWithAsyncData";
 import ClientComponentWrapper from "@/components/client/ClientComponentWrapper";
+import {
+  TrackedServerComponentBasic as ServerComponentBasic,
+  TrackedServerComponentWithData as ServerComponentWithData,
+  TrackedServerComponentNested as ServerComponentNested,
+  TrackedServerComponentWithAsyncData as ServerComponentWithAsyncData,
+} from "@/utils/wrap-server-components";
 
 export default function ServerComponentsPage() {
   return (

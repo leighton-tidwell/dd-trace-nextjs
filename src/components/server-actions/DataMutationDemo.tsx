@@ -6,7 +6,7 @@ import {
   addTodo,
   toggleTodo,
   deleteTodo,
-} from "@/actions/todoActions";
+} from "@/utils/wrap-server-actions";
 
 interface Todo {
   id: string;

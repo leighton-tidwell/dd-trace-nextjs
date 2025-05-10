@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { fetchWeatherData } from "@/actions/weatherActions";
+import { getWeather as fetchWeatherData } from "@/utils/wrap-server-actions";
 
 interface WeatherData {
   location: string;

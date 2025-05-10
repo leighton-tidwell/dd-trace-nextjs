@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { submitForm } from "@/actions/formActions";
+import { useState, useEffect } from "react";
+import { submitForm, validateForm } from "@/utils/wrap-server-actions";
 
 export default function FormWithServerAction() {
   const [formData, setFormData] = useState({
@@ -17,6 +17,35 @@ export default function FormWithServerAction() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Add validation state
+  const [validationErrors, setValidationErrors] = useState<{
+    name?: string;
+    email?: string;
+    message?: string;
+  }>({});
+
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationTimeout, setValidationTimeout] =
+    useState<NodeJS.Timeout | null>(null);
+
+  // Add useEffect for validation
+  useEffect(() => {
+    // Clear any existing validation messages when form status changes
+    if (formStatus.success) {
+      setValidationErrors({});
+    }
+  }, [formStatus]);
+
+  // Cleanup effect for the validation timeout
+  useEffect(() => {
+    // Return cleanup function to clear timeout when component unmounts
+    return () => {
+      if (validationTimeout) {
+        clearTimeout(validationTimeout);
+      }
+    };
+  }, [validationTimeout]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -25,6 +54,38 @@ export default function FormWithServerAction() {
       ...prev,
       [name]: value,
     }));
+
+    // Clear any existing timeout
+    if (validationTimeout) {
+      clearTimeout(validationTimeout);
+    }
+
+    // Set a new timeout to validate after user stops typing
+    const timeout = setTimeout(async () => {
+      // Only validate if we have some content
+      if (value.trim().length > 0) {
+        setIsValidating(true);
+        try {
+          // Get the updated form data
+          const updatedData = {
+            ...formData,
+            [name]: value,
+          };
+
+          // Call the server action to validate
+          const result = await validateForm(updatedData);
+
+          // Update validation errors
+          setValidationErrors(result.errors);
+        } catch (error) {
+          console.error("Validation error:", error);
+        } finally {
+          setIsValidating(false);
+        }
+      }
+    }, 500); // 500ms debounce
+
+    setValidationTimeout(timeout);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,6 +93,20 @@ export default function FormWithServerAction() {
     setIsSubmitting(true);
 
     try {
+      // Validate the form before submitting
+      const validationResult = await validateForm(formData);
+
+      if (!validationResult.valid) {
+        // Update validation errors
+        setValidationErrors(validationResult.errors);
+        setFormStatus({
+          success: false,
+          message: "Please fix the errors in the form before submitting.",
+        });
+        return;
+      }
+
+      // If validation passes, submit the form
       const result = await submitForm(formData);
       setFormStatus({
         success: true,
@@ -45,6 +120,8 @@ export default function FormWithServerAction() {
           email: "",
           message: "",
         });
+        // Clear validation errors
+        setValidationErrors({});
       }
     } catch (error) {
       setFormStatus({
@@ -82,7 +159,11 @@ export default function FormWithServerAction() {
             value={formData.name}
             onChange={handleChange}
             required
+            className={validationErrors.name ? "error" : ""}
           />
+          {validationErrors.name && (
+            <div className="validation-error">{validationErrors.name}</div>
+          )}
         </div>
 
         <div className="form-group">
@@ -94,7 +175,11 @@ export default function FormWithServerAction() {
             value={formData.email}
             onChange={handleChange}
             required
+            className={validationErrors.email ? "error" : ""}
           />
+          {validationErrors.email && (
+            <div className="validation-error">{validationErrors.email}</div>
+          )}
         </div>
 
         <div className="form-group">
@@ -106,7 +191,14 @@ export default function FormWithServerAction() {
             onChange={handleChange}
             rows={4}
             required
+            className={validationErrors.message ? "error" : ""}
           />
+          {validationErrors.message && (
+            <div className="validation-error">{validationErrors.message}</div>
+          )}
+          <div className="character-count">
+            {formData.message.length} / 500 characters
+          </div>
         </div>
 
         <button
@@ -194,6 +286,25 @@ export default function FormWithServerAction() {
 
         button.submitting {
           opacity: 0.7;
+        }
+
+        .validation-error {
+          color: #ff7875;
+          font-size: 0.85rem;
+          margin-top: 0.25rem;
+        }
+
+        input.error,
+        textarea.error {
+          border-color: #5a2a2a;
+          background-color: #3a1a1a;
+        }
+
+        .character-count {
+          font-size: 0.8rem;
+          color: #999;
+          text-align: right;
+          margin-top: 0.25rem;
         }
       `}</style>
     </div>

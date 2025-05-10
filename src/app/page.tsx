@@ -38,6 +38,9 @@ export default function Home() {
           <Link href="/server-actions" className={styles.secondary}>
             Test Server Actions
           </Link>
+          <Link href="/performance" className={styles.secondary}>
+            Performance Dashboard
+          </Link>
         </div>
       </main>
       <footer className={styles.footer}>
