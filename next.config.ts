@@ -1,4 +1,4 @@
-import "dd-trace/init";
+import "@/utils/tracer";
 
 import type { NextConfig } from "next";
 
